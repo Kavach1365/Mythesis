@@ -1,80 +1,76 @@
 import React, { useState } from 'react';
 
-const domains = [
-  { name: "", guide: [] },
-  { name: "Blockchain", guide: ["B1", "B2", "B3", "B4"] },
-  { name: "CyberSecurity", guide: ["C1", "C2", "New C3"] },
-  { name: "IOT", guide: ["I1", "I2", "I3"] },
-];
-
 export const Thesis2 = () => {
-  const [selectedOptions, setSelectedOptions] = useState(Array(3).fill(''));
-  const [domain, setDomain] = useState("");
-  const [guide, setGuide] = useState("");
+  const mainOptions = ['Main Option 1', 'Main Option 2', 'Main Option 3'];
+  const subOptions = ['Option A', 'Option B', 'Option C'];
 
-  const handleSelect = (index, value) => {
-    // Update selected options
-    const updatedOptions = [...selectedOptions];
-    updatedOptions[index] = value;
-    setSelectedOptions(updatedOptions);
+  const [mainSelections, setMainSelections] = useState(Array(mainOptions.length).fill(''));
+  const [subSelections, setSubSelections] = useState(Array(mainOptions.length).fill([]));
+  const [mainCompleted, setMainCompleted] = useState(Array(mainOptions.length).fill(false));
 
-    // Find the corresponding domain based on the selected option
-    const selectedDomain = domains.find(d => d.name === value);
+  const handleMainSelect = (index, value) => {
+    const updatedMainSelections = [...mainSelections];
+    updatedMainSelections[index] = value;
+    setMainSelections(updatedMainSelections);
 
-    // Update domain and reset guide in Thesis component
-    setDomain(selectedDomain ? selectedDomain.name : "");
-    setGuide("");
+    // Reset the corresponding sub-selection when a main option is selected
+    const updatedSubSelections = [...subSelections];
+    updatedSubSelections[index] = Array(subOptions.length).fill('');
+    setSubSelections(updatedSubSelections);
 
-    // If needed, disable the selected option in Thesis component
-    // You can add your own conditions for disabling options here
+    // Mark the current main dropdown as completed
+    const updatedMainCompleted = [...mainCompleted];
+    updatedMainCompleted[index] = true;
+    setMainCompleted(updatedMainCompleted);
   };
 
-  const handleDomainChange = (e) => {
-    const selectedDomain = e.target.value;
-    setDomain(selectedDomain);
-    setGuide("");
+  const handleSubSelect = (mainIndex, subIndex, value) => {
+    const updatedSubSelections = [...subSelections];
+    updatedSubSelections[mainIndex][subIndex] = value;
+    setSubSelections(updatedSubSelections);
   };
 
   return (
     <div>
-      <div>
-        {selectedOptions.map((selectedOption, index) => (
-          <div key={index}>
-            <label>{`Preference ${index + 1}`}</label>
-            <select
-              value={selectedOption}
-              onChange={(e) => handleSelect(index, e.target.value)}
-            >
-              <option value="">Select your domain</option>
-              {domains.map((option) => (
-                <option key={option.name} value={option.name} disabled={selectedOptions.includes(option.name) && selectedOptions.indexOf(option.name) !== index}>
-                  {option.name}
-                </option>
-              ))}
-            </select>
-          </div>
-        ))}
-      </div>
+      {mainOptions.map((mainOption, mainIndex) => (
+        <div key={mainIndex}>
+          <label>{`Main Box ${mainIndex + 1}`}</label>
+          <select
+            value={mainSelections[mainIndex]}
+            onChange={(e) => handleMainSelect(mainIndex, e.target.value)}
+          >
+            <option value="">Select a main option</option>
+            {mainOptions.map((option) => (
+              <option key={option} value={option} disabled={mainSelections.includes(option) && mainSelections.indexOf(option) !== mainIndex}>
+                {option}
+              </option>
+            ))}
+          </select>
 
-      <div>
-        <p>Welcome to Thesis Page <br /> Select Domain and Guide Preferences </p>
-        <select onChange={handleDomainChange} value={domain}>
-          {domains.map((d) => (
-            <option key={d.name} value={d.name}>
-              {d.name || "Select Domain"}
-            </option>
-          ))}
-        </select>
-        <select value={guide} disabled={domain === ""}>
-          <option value="">Select guide</option>
-          {domains.find((d) => d.name === domain)?.guide.map((sub) => (
-            <option key={sub} value={sub}>
-              {sub}
-            </option>
-          ))}
-        </select>
-      </div>
+          {mainCompleted[mainIndex] && (
+            <div>
+              {subOptions.map((subOption, subIndex) => (
+                <div key={subIndex}>
+                  <label>{`Sub Box ${mainIndex + 1}.${subIndex + 1}`}</label>
+                  <select
+                    value={subSelections[mainIndex][subIndex]}
+                    onChange={(e) => handleSubSelect(mainIndex, subIndex, e.target.value)}
+                  >
+                    <option value="">Select a sub option</option>
+                    {subOptions.map((option) => (
+                      <option key={option} value={option} disabled={subSelections[mainIndex].includes(option)}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 };
 
+//export default Dropdowns;
