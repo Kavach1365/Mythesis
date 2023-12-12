@@ -1,30 +1,27 @@
 import React, { useState } from 'react';
 
 export const Thesis2 = () => {
-  const mainOptions = ['Main Option 1', 'Main Option 2', 'Main Option 3'];
-
-  // Updated subOptions as an object
+  const mainOptions = ['Domain 1', 'Domain 2', 'Domain 3'];
   const subOptions = {
-    'Main Option 1': ['Sub Option A1', 'Sub Option B1', 'Sub Option C1'],
-    'Main Option 2': ['Sub Option A2', 'Sub Option B2', 'Sub Option C2'],
-    'Main Option 3': ['Sub Option A3', 'Sub Option B3', 'Sub Option C3']
+    'Domain 1': ['Guide A1', 'Guide B1', 'Guide C1'],
+    'Domain 2': ['Guide A2', 'Guide B2', 'Guide C2'],
+    'Domain 3': ['Guide A3', 'Guide B3', 'Guide C3']
   };
 
   const [mainSelections, setMainSelections] = useState(Array(mainOptions.length).fill(''));
   const [subSelections, setSubSelections] = useState(Array(mainOptions.length).fill([]));
   const [mainCompleted, setMainCompleted] = useState(Array(mainOptions.length).fill(false));
+  const [storedPreferences, setStoredPreferences] = useState([]);
 
   const handleMainSelect = (index, value) => {
     const updatedMainSelections = [...mainSelections];
     updatedMainSelections[index] = value;
     setMainSelections(updatedMainSelections);
 
-    // Reset the corresponding sub-selection when a main option is selected
     const updatedSubSelections = [...subSelections];
     updatedSubSelections[index] = Array(subOptions[value].length).fill('');
     setSubSelections(updatedSubSelections);
 
-    // Mark the current main dropdown as completed
     const updatedMainCompleted = [...mainCompleted];
     updatedMainCompleted[index] = true;
     setMainCompleted(updatedMainCompleted);
@@ -36,16 +33,25 @@ export const Thesis2 = () => {
     setSubSelections(updatedSubSelections);
   };
 
+  const handleStorePreferences = () => {
+    const preferences = mainOptions.map((mainOption, mainIndex) => ({
+      domain: mainSelections[mainIndex],
+      guides: subSelections[mainIndex]
+    }));
+
+    setStoredPreferences(preferences);
+  };
+
   return (
     <div>
       {mainOptions.map((mainOption, mainIndex) => (
         <div key={mainIndex}>
-          <label>{`Main Box ${mainIndex + 1}`}</label>
+          <label>{`Domain Preference ${mainIndex + 1}`}</label>
           <select
             value={mainSelections[mainIndex]}
             onChange={(e) => handleMainSelect(mainIndex, e.target.value)}
           >
-            <option value="">Select a main option</option>
+            <option value="">select domain</option>
             {mainOptions.map((option) => (
               <option key={option} value={option} disabled={mainSelections.includes(option) && mainSelections.indexOf(option) !== mainIndex}>
                 {option}
@@ -57,12 +63,12 @@ export const Thesis2 = () => {
             <div>
               {subOptions[mainSelections[mainIndex]].map((subOption, subIndex) => (
                 <div key={subIndex}>
-                  <label>{`Sub Box ${mainIndex + 1}.${subIndex + 1}`}</label>
+                  <label>{`Guide Preference ${mainIndex + 1}.${subIndex + 1}`}</label>
                   <select
                     value={subSelections[mainIndex][subIndex]}
                     onChange={(e) => handleSubSelect(mainIndex, subIndex, e.target.value)}
                   >
-                    <option value="">Select a sub option</option>
+                    <option value="">select guide</option>
                     {subOptions[mainSelections[mainIndex]].map((option) => (
                       <option key={option} value={option} disabled={subSelections[mainIndex].includes(option)}>
                         {option}
@@ -75,6 +81,24 @@ export const Thesis2 = () => {
           )}
         </div>
       ))}
+
+      <button onClick={handleStorePreferences}>Store Preferences</button>
+
+      <div>
+        <h2>Stored Preferences</h2>
+        <ul>
+          {storedPreferences.map((preference, index) => (
+            <li key={index}>
+              <strong>{`Domain ${index + 1}: `}</strong> {preference.domain}
+              <ul>
+                {preference.guides.map((guide, subIndex) => (
+                  <li key={subIndex}>{`Guide ${index + 1}.${subIndex + 1}: `}{guide}</li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
