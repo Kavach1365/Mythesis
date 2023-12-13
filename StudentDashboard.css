@@ -1,0 +1,187 @@
+/* StudentDashboard.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fc;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 30px auto;
+  }
+  
+  .card {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #e3e6f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  .card-header {
+    background-color: #4e73df;
+    color: #fff;
+    padding: 15px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  .stepper {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .step-number {
+    width: 30px;
+    height: 30px;
+    background-color: #4e73df;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
+  
+  .completed .step-number {
+    background-color: #5cb85c;
+  }
+  
+  .step-label {
+    margin-left: 10px;
+  }
+  /* StudentDashboard.css */
+
+/* Existing styles remain the same */
+
+.stepper {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .step {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .step-number {
+    width: 30px;
+    height: 30px;
+    background-color: #4e73df;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    z-index: 2;
+  }
+  
+  .completed .step-number {
+    background-color: #5cb85c;
+  }
+  
+  .step-label {
+    margin-left: 10px;
+  }
+  
+  /* Line connecting steps */
+  .line {
+    position: absolute;
+    height: 2px;
+    background-color: #4e73df;
+    width: calc(100% - 30px);
+    top: 50%;
+    left: 30px;
+    z-index: 1;
+  }
+  
+  .last-step .line {
+    display: none; /* Hide line for the last step */
+  }
+  /* StudentDashboard.css */
+
+.card-container {
+    display: flex;
+    justify-content: space-between; /* Adjust as needed */
+    margin-bottom: 20px; /* Add margin as needed */
+  }
+  
+  .card {
+    /* You/* StudentDashboard.css */
+
+.card {
+    max-width: 300px; /* Adjust the max-width as needed */
+    /* Your other card styles */
+  }
+  
+  /* Add more styles as needed */
+
+  }
+  
+  .calendar-card {
+    /* Your existing calendar card styles */
+  }
+  
+  /* Add more styles as needed */
+  
+  /* Add more styles as needed */
+  /* StudentDashboard.css */
+
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  
+    /* StudentDashboard.css */
+
+.card {
+    max-width: 700px; 
+    min-width:200px;/* Adjust the max-width as needed */
+    /* Your other card styles */
+  }
+  
+  /* Add more styles as needed */
+  
+    /* Your existing card styles */
+  .heading{
+    margin: 30px;
+  }
+  
+  .calendar-card {
+    width: 300px; /* Adjust the width as needed */
+    position: right;
+    height:100px;
+  }
+  
+  .calendar-header {
+    background-color: #4e73df; /* Adjust the background color as needed */
+    color: #fff;
+    padding: 10px;
+    height:40px;
+  }
+  
+  .custom-calendar {
+    width: 100%;
+  }
+  
+  /* Add more styles as needed */
+  
