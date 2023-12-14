@@ -7,6 +7,7 @@ import {
   Grid,
   Paper,
   Avatar,
+  Box,
   FormControl,
   FormLabel,
   RadioGroup,
@@ -28,7 +29,7 @@ const initialState = {
   mobileNo: '',
   email: '',
   address: '',
-  gender: 'male',
+  gender: '',
   age: '',
   region: '',
   state: '',
@@ -61,11 +62,21 @@ export const Sprofile = () => {
         : prevData.achievements.filter((item) => item !== name),
     }));
   };
-
-  const handleFileUpload = (e) => {
-    // Handle file upload logic here
+  const handleGenderChange = (e) => {
+    setFormData((prevData) => ({ ...prevData, gender: e.target.value }));
   };
 
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setFormData((prevData) => ({ ...prevData, profilePhoto: event.target.result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission logic here
@@ -75,53 +86,29 @@ export const Sprofile = () => {
   return (
     <Container component="main" maxWidth="md" >
       <Paper elevation={3} style={{ padding: 20, marginTop: 30 }}>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom align='center'>
           Student Profile
         </Typography>
+        <Box align="center" mb={2}>
+          <label htmlFor="photo-upload">
+            <Avatar
+              alt="Profile Photo"
+              src={formData.profilePhoto}
+              sx={{ width: 150, height: 150, cursor: 'pointer' }}
+            />
+          </label>
+          <input
+            id="photo-upload"
+            type="file"
+            accept="image/*"
+            onChange={handleFileUpload}
+            style={{ display: 'none' }}
+          />
+        </Box>
         <form onSubmit={handleSubmit}>
           {/* Add your components here */}
           {/* For example: */}
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}>
-              <TextField
-                fullWidth
-                label="First Name"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <TextField
-                fullWidth
-                label="Last Name"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <TextField
-                fullWidth
-                label="Last Name"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Last Name"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleInputChange}
-                required
-              />
-            </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
@@ -142,12 +129,78 @@ export const Sprofile = () => {
                 required
               />
             </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="FatherName"
+                name="Father's Name"
+                value={formData.lastName}
+                onChange={handleInputChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="MotherName"
+                name="MotherName"
+                value={formData.lastName}
+                onChange={handleInputChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="MobileNumber"
+                name="MobileNumber"
+                value={formData.firstName}
+                onChange={handleInputChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="MailId"
+                name="MailId"
+                value={formData.lastName}
+                onChange={handleInputChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl component="fieldset">
+                <Typography variant="subtitle1">Gender</Typography>
+                <RadioGroup
+                  row
+                  aria-label="gender"
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleGenderChange}
+                >
+                  <FormControlLabel value="male" control={<Radio />} label="Male" />
+                  <FormControlLabel value="female" control={<Radio />} label="Female" />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Age"
+                name="Age"
+                value={formData.firstName}
+                onChange={handleInputChange}
+                required
+              />
+            </Grid>
+            
             <Grid item xs={12} sm={12}>
               <TextField
                 fullWidth
-                label="First Name"
-                name="firstName"
-                value={formData.firstName}
+                label="Residential Address"
+                name="Residential Address"
+                value={formData.lastName}
                 onChange={handleInputChange}
                 required
               />
@@ -155,8 +208,40 @@ export const Sprofile = () => {
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
-                label="Last Name"
-                name="lastName"
+                label="Collage Name"
+                name="Collage Name"
+                value={formData.firstName}
+                onChange={handleInputChange}
+                required
+              />
+            </Grid>
+            
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="CollageAddr"
+                name="CollageAddr"
+                value={formData.lastName}
+                onChange={handleInputChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Branch"
+                name="Branch"
+                value={formData.firstName}
+                onChange={handleInputChange}
+                required
+              />
+            </Grid>
+            
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Mentor"
+                name="Mentor"
                 value={formData.lastName}
                 onChange={handleInputChange}
                 required
@@ -178,5 +263,3 @@ export const Sprofile = () => {
     </Container>
   );
 };
-
-//export default App;
